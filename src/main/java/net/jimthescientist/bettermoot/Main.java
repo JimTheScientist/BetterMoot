@@ -16,11 +16,12 @@ public class Main {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
-    public User user = new User();
+    public static User user = new User();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter session cookie:");
         String mootSessionToken = scanner.nextLine();
+        user.setUserToken(mootSessionToken);
     }
     public static void debugInfo(String output){
         System.out.println(ANSI_YELLOW + output);
