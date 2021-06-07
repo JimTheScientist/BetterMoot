@@ -1,0 +1,35 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'net.jimthescientist.bettermoot.Main'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+def version = '0.0.0'
+repositories {
+    mavenCentral()
+}
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Official Gradle Jar',
+                'Implementation-Version': archiveVersion,
+                'Main-Class': mainClassName
+    }
+    archiveBaseName = 'BetterMoot'
+    archiveVersion =  version
+}
+task jarOut {
+    jarOut.dependsOn 'jar'
+    doLast {
+        new File(libsDir, "BetterSetup.sh").text = """
+echo Setting up BetterMoot Version $version
+echo Running BetterMoor Version $version
+java -jar BetterMoot-${version}.jar
+read -s -n 1 -p "Press any key to exit"
+        """
+        new File(libsDir, "BetterMoot-${version}.sh").text = """
+echo Running BetterMoot Version $version
+java -jar BetterMoot-${version}.jar
+read -s -n 1 -p "Press any key to exit"
+        """
+    }
+}
